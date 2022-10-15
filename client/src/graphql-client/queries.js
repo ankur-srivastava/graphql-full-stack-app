@@ -49,6 +49,11 @@ export const fetchCompany = async (id) => {
                 id
                 name
                 description
+                jobs {
+                    id
+                    title
+                }
+
             }
         }
     `
