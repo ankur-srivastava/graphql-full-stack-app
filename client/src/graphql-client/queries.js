@@ -62,3 +62,21 @@ export const fetchCompany = async (id) => {
     console.log(`company => ${company}`)
     return company
 }
+
+// post a job
+export const postJob = async (input) => {
+    const query = gql`
+        mutation($input: CreateJobInput) {
+            job: createJob(input: $input) {
+                id
+                title
+                company {
+                id
+                }
+            }
+        }
+    `
+    const variables = { input }
+    const {job} = await request(GQL_URL, query, variables)
+    return job
+}

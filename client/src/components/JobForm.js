@@ -1,12 +1,21 @@
 import { useState } from 'react';
+import { postJob } from '../graphql-client/queries';
 
 function JobForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('should post a new job:', { title, description });
+
+    const companyId = 'pVbRRBQtMVw6lUAkj1k43' // FIXME
+    const input = {
+      title,
+      description,
+      companyId
+    }
+    const job = await postJob(input)
+    console.log('New Job => ', job);
   };
 
   return (
