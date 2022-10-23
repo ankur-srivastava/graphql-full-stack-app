@@ -8,11 +8,9 @@ function JobForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const companyId = 'pVbRRBQtMVw6lUAkj1k43' // FIXME
     const input = {
       title,
-      description,
-      companyId
+      description
     }
     const job = await postJob(input)
     console.log('New Job => ', job);
