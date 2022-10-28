@@ -1,19 +1,21 @@
 import { useState } from 'react';
-import { postJob } from '../graphql-client/queries';
+import { useCreateMutation } from '../graphql-client/hooks';
 
 function JobForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const { createJob, loading, error } = useCreateMutation()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const input = {
-      title,
-      description
-    }
-    const job = await postJob(input)
-    console.log('New Job => ', job);
+    const job = await createJob(title, description)
+    
+    // const input = {
+    //   title,
+    //   description
+    // }
+    // const job = await postJob(input)
+    console.log('New Job Added ', job);
   };
 
   return (
@@ -45,7 +47,7 @@ function JobForm() {
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link" onClick={handleSubmit}>
+              <button className="button is-link" onClick={handleSubmit} disabled={loading}>
                 Submit
               </button>
             </div>
